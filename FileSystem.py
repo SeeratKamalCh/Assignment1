@@ -6,15 +6,12 @@ import re
 
 """
 Semantics
-
 On Run:
 Menu is displayed
 User is asked to select an operation
 on selection, the program asks for a filename separately for each operation because it is a  multiple file system
-
 Exception:
     if user asks to create an already existing file then program asks it to overwrite it or not.
-
 """
 
 #Play app function keeps running till Exit is not pressed.
@@ -149,6 +146,17 @@ def UpdateFile():
         print("File does not exist")
     return
 
+#Show file content
+def ShowFileData():
+    global filename
+    try:
+        file=open(filename,"r+")
+        Data=file.read()
+        print(Data)
+        file.close()
+    except:
+        print("File does not exist")
+    return
 
 #Search string in file
 def SearchFile():
@@ -198,8 +206,3 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 filename=''
 Menu()
 PlayApp()
-
-
-
-
-    
