@@ -134,11 +134,15 @@ def UpdateFile():
             print("Enter data",end='')
             data=input()
             file.write(data)
+            file.truncate()
         elif choice=="A" or choice=="a":
             print("Enter data",end='')
             data=input()
             prevData=file.read()
             NewData=prevData+data
+            file.seek(0)
+            print(NewData)
+            file.truncate()
             file.write(NewData)
         file.close()    
         print("File Updated")
@@ -166,10 +170,10 @@ def SearchFile():
         data=file.read().strip().split()
         print("Enter string",end="")
         string=input()
-        SearchResult=[i for i, item in enumerate(data) if item.lowercase()==word1.lowercase()]
+        SearchResult=[i for i, item in enumerate(data) if item==string]
         print(SearchResult)
-        print(data)
         print(str(len(SearchResult))+" instances found")    
+        file.close()
     except:
         print("File does not exist")
     return
@@ -181,16 +185,17 @@ def ReplaceWord():
     global filename
     try:
         print("Replace word",end="")
-        oldword=input()
-        print("Replaced by",end="")
+        oldWord=input()
+        print("Replace by",end="")
         newWord=input()
         file=open(filename,"r+")
         data=file.read().strip().split()
-        SearchResult=[i for i, item in enumerate(data) if item.lowercase()==word1.lowercase()]
+        print("Previous Data:", data)
+        SearchResult=[i for i, item in enumerate(data) if item==oldWord]
         for i in SearchResult:
             data[i]=newWord
         file=open(filename,"w+")
-        print(data)
+        print("Changed Data:", data)
         data=" ".join(data)
         file.write(data)
         file.close()
