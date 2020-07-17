@@ -170,7 +170,7 @@ def SearchFile():
         data=file.read().strip().split()
         print("Enter string",end="")
         string=input()
-        SearchResult=[i for i, item in enumerate(data) if item==string]
+        SearchResult=[i for i, item in enumerate(data) if re.sub("[^A-Za-z]+","", item)==re.sub("[^A-Za-z]+","", string)]
         print(SearchResult)
         print(str(len(SearchResult))+" instances found")    
         file.close()
@@ -191,7 +191,8 @@ def ReplaceWord():
         file=open(filename,"r+")
         data=file.read().strip().split()
         print("Previous Data:", data)
-        SearchResult=[i for i, item in enumerate(data) if item==oldWord]
+        oldWord=re.sub("[^A-Za-z]+","", oldWord)
+        SearchResult=[i for i, item in enumerate(data) if re.sub("[^A-Za-z]+","", item)==re.sub("[^A-Za-z]+","", oldWord)]
         for i in SearchResult:
             data[i]=newWord
         file=open(filename,"w+")
